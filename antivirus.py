@@ -15,6 +15,7 @@ class Windows(QWidget):
 
         self.nozp = 1
         self.dlyavirusov = []
+        self.counter = 0
 
         #логин
         self.mailedit = QLineEdit()
@@ -111,8 +112,8 @@ class Windows(QWidget):
         self.historylbl = QLabel("История")
         self.historylist = QListWidget()
         self.historylist.setMaximumHeight(90)
-        self.safepix = QPixmap("safe.jfif")
-        self.notsafepix = QPixmap("notsafe.jfif")
+        self.safepix = QPixmap("forAntivirus/safe.jfif")
+        self.notsafepix = QPixmap("forAntivirus/notsafe.jfif")
 
         self.piclbl.setPixmap(self.safepix)
 
@@ -135,15 +136,20 @@ class Windows(QWidget):
 
         #безопасность
         self.seclbl = QLabel()
-        self.secpix = QPixmap("freerobux.jpg")
+        self.secpix = QPixmap("forAntivirus/freerobux.jpg")
         self.seclbl.setPixmap(self.secpix)
         self.seclbl.hide()
         self.fastcheckbtn = QPushButton("Быстрая проверка")
-        self.fastcheckbtn.clicked.connect(self.progress)
+        self.fastcheckbtn.clicked.connect(self.show_afigetkakaybolshayaproverka)
         self.fastlbl = QLabel("Обычно занимает до 5 минут")
         self.allcheckbtn = QPushButton("Полная проверка")
-        self.allcheckbtn.clicked.connect(self.progress)
+        self.allcheckbtn.clicked.connect(self.show_afigetkakaybolshayaproverka)
         self.alllbl = QLabel("Обычно занимает значительное время\n и может замедлить работу компьютера")
+        self.ofigetkakayabolshayaproverkabtn = QPushButton("Афигет какая большая\n и полнейшая проверка чтобы\n ты смог поскучать")
+        self.ofigetkakayabolshayaproverkabtn.clicked.connect(self.progress)
+        self.ofigetkakayabolshayaproverkabtn.hide()
+        self.ofigetkakoybolshoytext = QLabel("Обычно занимает как минимум 10\n минут и ничего не делает кроме как находит\n плохие программы на компьютере")
+        self.ofigetkakoybolshoytext.hide()
         self.fastcheckbtn.setMinimumHeight(45)
         self.allcheckbtn.setMinimumHeight(45)
         self.fastcheckbtn.hide()
@@ -155,13 +161,15 @@ class Windows(QWidget):
         self.progress_label.hide()
         self.progress_bar = QProgressBar()
         self.progress_bar.setMinimum(0)
-        self.progress_bar.setMaximum(100)
+        self.progress_bar.setMaximum(600)
         self.progress_bar.hide()
 
         self.defV.addWidget(self.progress_label, alignment= Qt.AlignTop)
         self.defV.addWidget(self.progress_bar, alignment= Qt.AlignTop)
 
         self.defV.addWidget(self.seclbl, alignment= Qt.AlignTop)
+        self.defV.addWidget(self.ofigetkakayabolshayaproverkabtn)
+        self.defV.addWidget(self.ofigetkakoybolshoytext)
         self.defV.addWidget(self.fastlbl)
         self.defV.addWidget(self.fastcheckbtn)
         self.defV.addWidget(self.alllbl)
@@ -174,7 +182,7 @@ class Windows(QWidget):
         self.bigfilesbtn = QPushButton("Большие файлы")
         self.bigfilesbtn.clicked.connect(self.bigfiles)
         self.nouseappsbtn = QPushButton("Неиспользуемые приложения")
-        self.trashcan = QPixmap("trashcan.jfif")
+        self.trashcan = QPixmap("forAntivirus/trashcan.jfif")
         self.trashlbl = QLabel()
         self.trashlbl.setPixmap(self.trashcan)
         self.trashlbl.hide()
@@ -197,7 +205,7 @@ class Windows(QWidget):
 
         #приватность
         self.privlbl = QLabel()
-        self.funnyface = QPixmap("funnymask.jfif")
+        self.funnyface = QPixmap("forAntivirus/funnymask.jfif")
         self.privlbl.setPixmap(self.funnyface)
         self.privlbl.hide()
         self.vpnbtn = QPushButton("VPN (не настоящий)")
@@ -213,7 +221,7 @@ class Windows(QWidget):
 
         #аккаунт
         self.proflbl = QLabel()
-        self.profpix = QPixmap("menface.jfif")
+        self.profpix = QPixmap("forAntivirus/menface.jfif")
         self.proflbl.setPixmap(self.profpix)
         self.proflbl.hide()
         self.profilelbl = QLabel("Здравствуйте, " + self.name)
@@ -1937,7 +1945,7 @@ QPushButton.important-button:hover {
     background-color: #5aa0f2;
 }''')
         elif self.switchthemes.currentIndex() == 4:
-            self.piclbl.setPixmap(QPixmap("lol.png"))
+            self.piclbl.setPixmap(QPixmap("forAntivirus/lol.png"))
             self.main()
     def nosecure(self):
         if self.notsafe.isChecked():
@@ -1991,38 +1999,25 @@ QPushButton.important-button:hover {
         self.gobackbtn.show()
     def progress(self):
         files = ["atieclxx.exe", 'atiumd6a.cap', 'AUDIOKSE.dll', 'auditpol.exe', 'AuthHost.exe', 'AxInstUI.exe', 'explorer.exe', 'bcdedit.exe', 'bdeunlock.exe', 'resmon.exe', 'taskmgr.exe', 'BOOTVID.DLL',
-        'bthudtask.exe', 'C_850.NLS', 'certreq.exe', 'choice.exe', 'cic.dll', 'cleanmgr.exe', 'ClipRenew.exe', 'cmd.exe', 'cmmon32.exe', 'DeviceEject.exe', 'dgtrayicon.exe', 'Dism.exe', 'wsl.exe'] * 4
-        self.piclbl.hide()
-        self.memlbl.hide()
-        self.checkbtn.hide()
-        self.historylbl.hide()
-        self.historylist.hide()
-        self.fastcheckbtn.hide()
-        self.allcheckbtn.hide()
-        self.fastlbl.hide()
-        self.alllbl.hide()
-        self.dupplacebtn.hide()
-        self.bigfilesbtn.hide()
-        self.nouseappsbtn.hide()
-        self.vpnbtn.hide()
-        self.nodatabtn.hide()
-        self.profilelbl.hide()
-        self.logoutbtn.hide()
-        self.infolbl.hide()
-        self.virus.hide()
-        self.switchthemes.hide()
-        self.activatevirus.hide()
-        self.idc.hide()
-        self.nozplbl.hide()
-        self.trashlbl.hide()
-        self.privlbl.hide()
-        self.proflbl.hide()
-        self.seclbl.hide()
-        self.notsafe.hide()
-        self.listofbigfiles.hide()
-        self.gobackbtn.hide()
+        'bthudtask.exe', 'C_850.NLS', 'certreq.exe', 'choice.exe', 'cic.dll', 'cleanmgr.exe', 'ClipRenew.exe', 'cmd.exe', 'cmmon32.exe', 'DeviceEject.exe', 'dgtrayicon.exe', 'Dism.exe', 'wsl.exe', 'chrome.exe', 'svhost.exe', 'poker.exe', 'taiwan is a free countery.exe', ':D', 'D:', '\(O_O)/'] * 100
         self.progress_label.show()
         self.progress_bar.show()
+        self.ofigetkakayabolshayaproverkabtn.hide()
+        self.ofigetkakoybolshoytext.hide()
+    def show_afigetkakaybolshayaproverka(self):
+        if self.counter == 1:
+            self.allcheckbtn.hide()
+        if self.counter == 0:
+            self.fastcheckbtn.hide()
+            self.ofigetkakayabolshayaproverkabtn.show()
+            self.ofigetkakoybolshoytext.show()
+            self.counter = 1
+            self.fastlbl.hide()
+            self.alllbl.hide()
+        
+
+
+       
 
 
 
